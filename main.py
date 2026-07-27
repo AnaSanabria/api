@@ -21,6 +21,7 @@ from datetime import date, datetime, time, timedelta, timezone
 from os import getenv
 from typing import Any, Literal
 
+import certifi
 from bson import ObjectId
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query, Request, status
@@ -55,6 +56,7 @@ client = MongoClient(
     connectTimeoutMS=8000,
     socketTimeoutMS=15000,
     tz_aware=True,
+    tlsCAFile=certifi.where(),
 )
 db = client[MONGO_DB]
 reportes: Collection = db["reportes"]
